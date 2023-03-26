@@ -2,6 +2,7 @@
 #include<iostream>
 
 using namespace std;
+using namespace myFraction;
 
 void Fraction::__fraction_simplify(void) {
 	Ftype gcd = GreatestCommonDivisor(numer_, denomin_);// 最大公约数变量
@@ -9,7 +10,7 @@ void Fraction::__fraction_simplify(void) {
 	denomin_ = denomin_/gcd;
 }
 
-template<> Fraction::Fraction(float num) {
+Fraction::Fraction(float num) {
 	bool bOverflow = true;//double数值溢出标志
 	double denomin = 1.0;//分母
 	int i = 0;
@@ -41,7 +42,7 @@ template<> Fraction::Fraction(float num) {
 	}
 }
 
-template<> Fraction::Fraction(double num) {
+Fraction::Fraction(double num) {
 	bool bOverflow = true;//double数值溢出标志
 	double denomin = 1.0;//分母
 	int i = 0;
@@ -154,13 +155,13 @@ Fraction Fraction::operator/(const Fraction& frac)const {
 	return fracThis;
 }
 
-ostream& operator<<(ostream& os, const Fraction& frac) {
-	if (frac.Denominator() == 1) {//如果分母为1
-		cout << frac.numer_;//直接输出分子
-	}
-	else {
-		cout << frac.numer_ << "/" << frac.denomin_;
-	}
+// ostream& operator<<(ostream& os, const Fraction& frac) {
+// 	if (frac.Denominator() == 1) {//如果分母为1
+// 		cout << frac.Numerator();//直接输出分子
+// 	}
+// 	else {
+// 		cout << frac.Numerator() << "/" << frac.Denominator();
+// 	}
 	
-	return os;
-}
+// 	return os;
+// }

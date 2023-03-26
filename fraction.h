@@ -10,6 +10,8 @@
 #include<iostream>
 using namespace std;
 
+namespace myFraction{
+
 #define FRACTIONAL_PERCISION_LIMIT (1E18)
 typedef long long Ftype;
 
@@ -24,8 +26,8 @@ public:
 	~Fraction() {}
 	template<class T>
 	Fraction(T num) { numer_ = num; }//对于int或者char，直接赋值给分子
-	template<> Fraction(float num);//对于float
-	template<> Fraction(double num);//	double时，进行运算后转化为分数
+	Fraction(float num);//对于float
+	Fraction(double num);//	double时，进行运算后转化为分数
 	Fraction(Ftype numer, Ftype denomin);//分数的正规构建函数
 
 	void SetNumerator(const Ftype);//设置分子
@@ -62,7 +64,23 @@ public:
 	template<class T>
 	friend Fraction operator/(const T num, const Fraction& frac) { return Fraction(num) / frac; }
 
-	friend ostream& operator<<(ostream&, const Fraction&);
+	//吗了隔壁的
+	//模板函数声明与定义不能分开就头疼的了
+	//linux下友元函数声明与定义都不能分开了
+	//操他妈了隔壁的，C++有个屁优势
+	//直接用python算了
+	friend ostream& operator<<(ostream& os, const Fraction& frac){
+		if (frac.Denominator() == 1) {//如果分母为1
+		cout << frac.Numerator();//直接输出分子
+		}
+		else {
+		cout << frac.Numerator() << "/" << frac.Denominator();
+		}
+	
+	return os;
+	}
 };
+
+}
 
 #endif
