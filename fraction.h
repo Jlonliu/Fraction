@@ -1,41 +1,41 @@
 #ifndef FRACTIONAL_H_
 #define FRACTIONAL_H_
-//·ÖÊıÀà£ºÓÃ·ÖÊı´úÌæĞ¡Êı½øĞĞ¼ÆËã£¬ÓĞ×ÅĞ¡Êıµãºó18Î»µÄ¾«¶È
-//·ÖÊıÀàµÄ¾«¶È½ö½ö±Èdouble¶àÁËÁ½Î»£¬µ«ÊÇÄÚ´æ´óĞ¡È´·­ÁË±¶£¬¶øÇÒÎŞ·¨ÏñdoubleÒ»Ñù´æ´¢´óÊı
-//ÄÇÃ´ÎÒ±àĞ´·ÖÊıÀàµÄÒâÒåºÎÔÚ£¿
-//ÎÒ±àĞ´·ÖÊıÀàµÄ×îÖØÒªµÄÒ»µãÊÇÎªÁËÄÜ¹»µÃµ½ÈçÏÂµÄÊı×Ö£º
-//ÎÒÏëÒª¿´µ½µÄÊÇ10.0¶ø²»ÊÇ9.999999999999999999
-//ÎÒÒ²²»Ïë¿´µ½ÔËËãÖĞÒ»¸ö0.0000000000000001ÒòÎªÓëÒ»¸ö´óÊıÏà³ËµÃµ½ÁË0.1ÕâÑùµÄÓ°ÏìÊıÖµ·ÖÎöµÄÊı
+//åˆ†æ•°ç±»ï¼šç”¨åˆ†æ•°ä»£æ›¿å°æ•°è¿›è¡Œè®¡ç®—ï¼Œæœ‰ç€å°æ•°ç‚¹å18ä½çš„ç²¾åº¦
+//åˆ†æ•°ç±»çš„ç²¾åº¦ä»…ä»…æ¯”doubleå¤šäº†ä¸¤ä½ï¼Œä½†æ˜¯å†…å­˜å¤§å°å´ç¿»äº†å€ï¼Œè€Œä¸”æ— æ³•åƒdoubleä¸€æ ·å­˜å‚¨å¤§æ•°
+//é‚£ä¹ˆæˆ‘ç¼–å†™åˆ†æ•°ç±»çš„æ„ä¹‰ä½•åœ¨ï¼Ÿ
+//æˆ‘ç¼–å†™åˆ†æ•°ç±»çš„æœ€é‡è¦çš„ä¸€ç‚¹æ˜¯ä¸ºäº†èƒ½å¤Ÿå¾—åˆ°å¦‚ä¸‹çš„æ•°å­—ï¼š
+//æˆ‘æƒ³è¦çœ‹åˆ°çš„æ˜¯10.0è€Œä¸æ˜¯9.999999999999999999
+//æˆ‘ä¹Ÿä¸æƒ³çœ‹åˆ°è¿ç®—ä¸­ä¸€ä¸ª0.0000000000000001å› ä¸ºä¸ä¸€ä¸ªå¤§æ•°ç›¸ä¹˜å¾—åˆ°äº†0.1è¿™æ ·çš„å½±å“æ•°å€¼åˆ†æçš„æ•°
 #include "mathop.h"
 #include<iostream>
 using namespace std;
 
-namespace myFraction{
+namespace susan{
 
 #define FRACTIONAL_PERCISION_LIMIT (1E18)
 typedef long long Ftype;
 
 class Fraction {
 private:
-	Ftype numer_ = 0;//·Ö×Ó
-	Ftype denomin_ = 1;//·ÖÄ¸
-	void __fraction_simplify(void);//·ÖÊıÔ¼·Ö
+	Ftype numer_ = 0;//åˆ†å­
+	Ftype denomin_ = 1;//åˆ†æ¯
+	void __fraction_simplify(void);//åˆ†æ•°çº¦åˆ†
 
 public:
 	Fraction() {}
 	~Fraction() {}
 	template<class T>
-	Fraction(T num) { numer_ = num; }//¶ÔÓÚint»òÕßchar£¬Ö±½Ó¸³Öµ¸ø·Ö×Ó
-	Fraction(float num);//¶ÔÓÚfloat
-	Fraction(double num);//	doubleÊ±£¬½øĞĞÔËËãºó×ª»¯Îª·ÖÊı
-	Fraction(Ftype numer, Ftype denomin);//·ÖÊıµÄÕı¹æ¹¹½¨º¯Êı
+	Fraction(T num) { numer_ = num; }//å¯¹äºintæˆ–è€…charï¼Œç›´æ¥èµ‹å€¼ç»™åˆ†å­
+	Fraction(float num);//å¯¹äºfloat
+	Fraction(double num);//	doubleæ—¶ï¼Œè¿›è¡Œè¿ç®—åè½¬åŒ–ä¸ºåˆ†æ•°
+	Fraction(Ftype numer, Ftype denomin);//åˆ†æ•°çš„æ­£è§„æ„å»ºå‡½æ•°
 
-	void SetNumerator(const Ftype);//ÉèÖÃ·Ö×Ó
-	void SetDenominator(const Ftype);//ÉèÖÃ·ÖÄ¸
-	Ftype Denominator(void)const;//·µ»Ø·ÖÄ¸
-	Ftype Numerator(void)const;//·µ»Ø·Ö×Ó
-	Ftype Int64(void)const;//·µ»Øint»¯µÄ·ÖÊı
-	double Double(void)const;//·µ»Ødouble»¯µÄ·ÖÊı
+	void SetNumerator(const Ftype);//è®¾ç½®åˆ†å­
+	void SetDenominator(const Ftype);//è®¾ç½®åˆ†æ¯
+	Ftype Denominator(void)const;//è¿”å›åˆ†æ¯
+	Ftype Numerator(void)const;//è¿”å›åˆ†å­
+	Ftype Int64(void)const;//è¿”å›intåŒ–çš„åˆ†æ•°
+	double Double(void)const;//è¿”å›doubleåŒ–çš„åˆ†æ•°
 	
 	void operator=(const Fraction&);
 	template<class T>
@@ -64,14 +64,14 @@ public:
 	template<class T>
 	friend Fraction operator/(const T num, const Fraction& frac) { return Fraction(num) / frac; }
 
-	//ÂğÁË¸ô±ÚµÄ
-	//Ä£°åº¯ÊıÉùÃ÷Óë¶¨Òå²»ÄÜ·Ö¿ª¾ÍÍ·ÌÛµÄÁË
-	//linuxÏÂÓÑÔªº¯ÊıÉùÃ÷Óë¶¨Òå¶¼²»ÄÜ·Ö¿ªÁË
-	//²ÙËûÂèÁË¸ô±ÚµÄ£¬C++ÓĞ¸öÆ¨ÓÅÊÆ
-	//Ö±½ÓÓÃpythonËãÁË
+	//å—äº†éš”å£çš„
+	//æ¨¡æ¿å‡½æ•°å£°æ˜ä¸å®šä¹‰ä¸èƒ½åˆ†å¼€å°±å¤´ç–¼çš„äº†
+	//linuxä¸‹å‹å…ƒå‡½æ•°å£°æ˜ä¸å®šä¹‰éƒ½ä¸èƒ½åˆ†å¼€äº†
+	//æ“ä»–å¦ˆäº†éš”å£çš„ï¼ŒC++æœ‰ä¸ªå±ä¼˜åŠ¿
+	//ç›´æ¥ç”¨pythonç®—äº†
 	friend ostream& operator<<(ostream& os, const Fraction& frac){
-		if (frac.Denominator() == 1) {//Èç¹û·ÖÄ¸Îª1
-		cout << frac.Numerator();//Ö±½ÓÊä³ö·Ö×Ó
+		if (frac.Denominator() == 1) {//å¦‚æœåˆ†æ¯ä¸º1
+		cout << frac.Numerator();//ç›´æ¥è¾“å‡ºåˆ†å­
 		}
 		else {
 		cout << frac.Numerator() << "/" << frac.Denominator();

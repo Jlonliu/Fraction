@@ -2,89 +2,89 @@
 #include<iostream>
 
 using namespace std;
-using namespace myFraction;
+using namespace susan;
 
 void Fraction::__fraction_simplify(void) {
-	Ftype gcd = GreatestCommonDivisor(numer_, denomin_);// ×î´ó¹«Ô¼Êı±äÁ¿
+	Ftype gcd = GreatestCommonDivisor(numer_, denomin_);// æœ€å¤§å…¬çº¦æ•°å˜é‡
 	numer_ = numer_/gcd;
 	denomin_ = denomin_/gcd;
 }
 
 Fraction::Fraction(float num) {
-	bool bOverflow = true;//doubleÊıÖµÒç³ö±êÖ¾
-	double denomin = 1.0;//·ÖÄ¸
+	bool bOverflow = true;//doubleæ•°å€¼æº¢å‡ºæ ‡å¿—
+	double denomin = 1.0;//åˆ†æ¯
 	int i = 0;
-	//doubleĞÍ½öÄÜÌá¹©16Î»¾«×¼ÓĞĞ§Êı×Ö
-	//·ÖÊıÄÜ¹»Ìá¹©18Î»¾«×¼ÓĞĞ§Êı×Ö£¬¾«¶ÈÔÚdoubleÖ®ÉÏ
-	//µ«ÊÇdouble¿ÉÒÔÉáÆú¾«¶ÈÀ´´æ´¢¼¸°Ù´ÎÃİµÄ¾Ş´óÊı×Ö£¬·ÖÊıÒª±£Ö¤¾«¶È£¬Ö»ÄÜ´æ´¢18´ÎÃİµÄ×î´óÊı×Ö
-	//Óöµ½¾«¶ÈµÍµÄ¾Ş´ódoubleÊı×Ö£¬·ÖÊıºÜ¿ÉÄÜÎŞ·¨´æ´¢£¬ËùÒÔÒªÏÈ¼ì²âdoubleÊıÖµ×ª»¯Îª·ÖÊıÊÇ·ñ»áÒç³ö
+	//doubleå‹ä»…èƒ½æä¾›16ä½ç²¾å‡†æœ‰æ•ˆæ•°å­—
+	//åˆ†æ•°èƒ½å¤Ÿæä¾›18ä½ç²¾å‡†æœ‰æ•ˆæ•°å­—ï¼Œç²¾åº¦åœ¨doubleä¹‹ä¸Š
+	//ä½†æ˜¯doubleå¯ä»¥èˆå¼ƒç²¾åº¦æ¥å­˜å‚¨å‡ ç™¾æ¬¡å¹‚çš„å·¨å¤§æ•°å­—ï¼Œåˆ†æ•°è¦ä¿è¯ç²¾åº¦ï¼Œåªèƒ½å­˜å‚¨18æ¬¡å¹‚çš„æœ€å¤§æ•°å­—
+	//é‡åˆ°ç²¾åº¦ä½çš„å·¨å¤§doubleæ•°å­—ï¼Œåˆ†æ•°å¾ˆå¯èƒ½æ— æ³•å­˜å‚¨ï¼Œæ‰€ä»¥è¦å…ˆæ£€æµ‹doubleæ•°å€¼è½¬åŒ–ä¸ºåˆ†æ•°æ˜¯å¦ä¼šæº¢å‡º
 	for (denomin = 1.0; denomin < INT64_MAX; denomin = denomin * 10) {
-		if (abs(num * denomin) > INT64_MAX) {//Èç¹ûdoubleÊıÖµÔÚĞ¡ÊıÏû³ı¹ı³ÌÖĞÒç³öÁË
+		if (abs(num * denomin) > INT64_MAX) {//å¦‚æœdoubleæ•°å€¼åœ¨å°æ•°æ¶ˆé™¤è¿‡ç¨‹ä¸­æº¢å‡ºäº†
 			break;
 		}
-		if (num * denomin - Ftype(num * denomin) == 0) {//Ïû³ıdoubleÊıÖµµÄËùÓĞĞ¡Êı
-			bOverflow = false;//doubleÊıÖµÎ´Òç³ö
+		if (num * denomin - Ftype(num * denomin) == 0) {//æ¶ˆé™¤doubleæ•°å€¼çš„æ‰€æœ‰å°æ•°
+			bOverflow = false;//doubleæ•°å€¼æœªæº¢å‡º
 			break;
 		}
 	}
 
-	if (bOverflow) {//doubleÊıÖµ³¬³Ì
+	if (bOverflow) {//doubleæ•°å€¼è¶…ç¨‹
 		//Marked
-		//Òì³£´¦Àí
-		//ÔİÊ±ÏÈ±¨¸ö¾¯
-		cout << "×ª»¯Îª·ÖÊıµÄÊıÖµ³¬³Ì" << endl;
+		//å¼‚å¸¸å¤„ç†
+		//æš‚æ—¶å…ˆæŠ¥ä¸ªè­¦
+		cout << "è½¬åŒ–ä¸ºåˆ†æ•°çš„æ•°å€¼è¶…ç¨‹" << endl;
 
 	}
 	else {
 		numer_ = Ftype(num * denomin);
 		denomin_ = Ftype(denomin);
-		__fraction_simplify();//·ÖÊıÔ¼·Ö
+		__fraction_simplify();//åˆ†æ•°çº¦åˆ†
 	}
 }
 
 Fraction::Fraction(double num) {
-	bool bOverflow = true;//doubleÊıÖµÒç³ö±êÖ¾
-	double denomin = 1.0;//·ÖÄ¸
+	bool bOverflow = true;//doubleæ•°å€¼æº¢å‡ºæ ‡å¿—
+	double denomin = 1.0;//åˆ†æ¯
 	int i = 0;
-	//doubleĞÍ½öÄÜÌá¹©16Î»¾«×¼ÓĞĞ§Êı×Ö
-	//·ÖÊıÄÜ¹»Ìá¹©18Î»¾«×¼ÓĞĞ§Êı×Ö£¬¾«¶ÈÔÚdoubleÖ®ÉÏ
-	//µ«ÊÇdouble¿ÉÒÔÉáÆú¾«¶ÈÀ´´æ´¢¼¸°Ù´ÎÃİµÄ¾Ş´óÊı×Ö£¬·ÖÊıÒª±£Ö¤¾«¶È£¬Ö»ÄÜ´æ´¢18´ÎÃİµÄ×î´óÊı×Ö
-	//Óöµ½¾«¶ÈµÍµÄ¾Ş´ódoubleÊı×Ö£¬·ÖÊıºÜ¿ÉÄÜÎŞ·¨´æ´¢£¬ËùÒÔÒªÏÈ¼ì²âdoubleÊıÖµ×ª»¯Îª·ÖÊıÊÇ·ñ»áÒç³ö
+	//doubleå‹ä»…èƒ½æä¾›16ä½ç²¾å‡†æœ‰æ•ˆæ•°å­—
+	//åˆ†æ•°èƒ½å¤Ÿæä¾›18ä½ç²¾å‡†æœ‰æ•ˆæ•°å­—ï¼Œç²¾åº¦åœ¨doubleä¹‹ä¸Š
+	//ä½†æ˜¯doubleå¯ä»¥èˆå¼ƒç²¾åº¦æ¥å­˜å‚¨å‡ ç™¾æ¬¡å¹‚çš„å·¨å¤§æ•°å­—ï¼Œåˆ†æ•°è¦ä¿è¯ç²¾åº¦ï¼Œåªèƒ½å­˜å‚¨18æ¬¡å¹‚çš„æœ€å¤§æ•°å­—
+	//é‡åˆ°ç²¾åº¦ä½çš„å·¨å¤§doubleæ•°å­—ï¼Œåˆ†æ•°å¾ˆå¯èƒ½æ— æ³•å­˜å‚¨ï¼Œæ‰€ä»¥è¦å…ˆæ£€æµ‹doubleæ•°å€¼è½¬åŒ–ä¸ºåˆ†æ•°æ˜¯å¦ä¼šæº¢å‡º
 	for (denomin = 1.0; denomin < INT64_MAX; denomin = denomin * 10) {
-		if (abs(num * denomin) > INT64_MAX) {//Èç¹ûdoubleÊıÖµÔÚĞ¡ÊıÏû³ı¹ı³ÌÖĞÒç³öÁË
+		if (abs(num * denomin) > INT64_MAX) {//å¦‚æœdoubleæ•°å€¼åœ¨å°æ•°æ¶ˆé™¤è¿‡ç¨‹ä¸­æº¢å‡ºäº†
 			break;
 		}
-		if (num * denomin - Ftype(num * denomin) == 0) {//Ïû³ıdoubleÊıÖµµÄËùÓĞĞ¡Êı
-			bOverflow = false;//doubleÊıÖµÎ´Òç³ö
+		if (num * denomin - Ftype(num * denomin) == 0) {//æ¶ˆé™¤doubleæ•°å€¼çš„æ‰€æœ‰å°æ•°
+			bOverflow = false;//doubleæ•°å€¼æœªæº¢å‡º
 			break;
 		}
 	}
 
-	if (bOverflow) {//doubleÊıÖµ³¬³Ì
+	if (bOverflow) {//doubleæ•°å€¼è¶…ç¨‹
 		//Marked
-		//Òì³£´¦Àí
-		//ÔİÊ±ÏÈ±¨¸ö¾¯
-		cout << "×ª»¯Îª·ÖÊıµÄÊıÖµ³¬³Ì" << endl;
+		//å¼‚å¸¸å¤„ç†
+		//æš‚æ—¶å…ˆæŠ¥ä¸ªè­¦
+		cout << "è½¬åŒ–ä¸ºåˆ†æ•°çš„æ•°å€¼è¶…ç¨‹" << endl;
 
 	}
 	else {
 		numer_ = Ftype(num * denomin);
 		denomin_ = Ftype(denomin);
-		__fraction_simplify();//·ÖÊıÔ¼·Ö
+		__fraction_simplify();//åˆ†æ•°çº¦åˆ†
 	}
 }
 
 Fraction::Fraction(Ftype numer, Ftype denomin) {
-	if (denomin == 0) {//Èç¹û·ÖÄ¸Îª0
+	if (denomin == 0) {//å¦‚æœåˆ†æ¯ä¸º0
 		//Marked
-		//Òì³£´¦Àí
-		//ÔİÊ±ÏÈ±¨¸ö¾¯
-		cout << "´íÎó£º·ÖÄ¸ÉèÖÃÎªÁË0" << endl;
+		//å¼‚å¸¸å¤„ç†
+		//æš‚æ—¶å…ˆæŠ¥ä¸ªè­¦
+		cout << "é”™è¯¯ï¼šåˆ†æ¯è®¾ç½®ä¸ºäº†0" << endl;
 	}
 	else {
 		numer_ = numer;
 		denomin_ = denomin;
-		__fraction_simplify();//·ÖÊıÔ¼·Ö
+		__fraction_simplify();//åˆ†æ•°çº¦åˆ†
 	}
 }
 
@@ -119,45 +119,45 @@ void Fraction::operator=(const Fraction& frac) {
 
 Fraction Fraction::operator+(const Fraction& frac)const {
 	Fraction fracThis = *this;
-	Ftype lcm = LeastCommonMultiple(fracThis.Denominator(), frac.Denominator());//»ñÈ¡·ÖÄ¸×î´ó¹«Ô¼Êı
-	Ftype fracThisMultiple = lcm / fracThis.Denominator();//·Ö×Ó³Ë×Ó£º×îĞ¡¹«±¶Êı³ıÒÔ·ÖÄ¸
-	Ftype fracMultiple = lcm / frac.Denominator();//·Ö×Ó³Ë×Ó£º×îĞ¡¹«±¶Êı³ıÒÔ·ÖÄ¸
+	Ftype lcm = LeastCommonMultiple(fracThis.Denominator(), frac.Denominator());//è·å–åˆ†æ¯æœ€å¤§å…¬çº¦æ•°
+	Ftype fracThisMultiple = lcm / fracThis.Denominator();//åˆ†å­ä¹˜å­ï¼šæœ€å°å…¬å€æ•°é™¤ä»¥åˆ†æ¯
+	Ftype fracMultiple = lcm / frac.Denominator();//åˆ†å­ä¹˜å­ï¼šæœ€å°å…¬å€æ•°é™¤ä»¥åˆ†æ¯
 	fracThis.SetNumerator(fracThis.Numerator() * fracThisMultiple
-		+ frac.Numerator() * fracMultiple);//·Ö×Ó³Ë³Ë×ÓºóÏà¼Ó
-	//fracThis.SetDenominator(fracThis.Denominator() * frac.Denominator());//·ÖÄ¸Ïà³Ë
-	fracThis.SetDenominator(lcm);//»ñÈ¡·ÖÄ¸
+		+ frac.Numerator() * fracMultiple);//åˆ†å­ä¹˜ä¹˜å­åç›¸åŠ 
+	//fracThis.SetDenominator(fracThis.Denominator() * frac.Denominator());//åˆ†æ¯ç›¸ä¹˜
+	fracThis.SetDenominator(lcm);//è·å–åˆ†æ¯
 	return fracThis;
 }
 
 Fraction Fraction::operator-(const Fraction& frac)const {
 	Fraction fracThis = *this;
-	Ftype lcm = LeastCommonMultiple(fracThis.Denominator(), frac.Denominator());//»ñÈ¡·ÖÄ¸×î´ó¹«Ô¼Êı
-	Ftype fracThisMultiple = lcm / fracThis.Denominator();//·Ö×Ó³Ë×Ó£º×îĞ¡¹«±¶Êı³ıÒÔ·ÖÄ¸
-	Ftype fracMultiple = lcm / frac.Denominator();//·Ö×Ó³Ë×Ó£º×îĞ¡¹«±¶Êı³ıÒÔ·ÖÄ¸
+	Ftype lcm = LeastCommonMultiple(fracThis.Denominator(), frac.Denominator());//è·å–åˆ†æ¯æœ€å¤§å…¬çº¦æ•°
+	Ftype fracThisMultiple = lcm / fracThis.Denominator();//åˆ†å­ä¹˜å­ï¼šæœ€å°å…¬å€æ•°é™¤ä»¥åˆ†æ¯
+	Ftype fracMultiple = lcm / frac.Denominator();//åˆ†å­ä¹˜å­ï¼šæœ€å°å…¬å€æ•°é™¤ä»¥åˆ†æ¯
 	fracThis.SetNumerator(fracThis.Numerator() * fracThisMultiple
-		- frac.Numerator() * fracMultiple);//·Ö×Ó³Ë³Ë×ÓºóÏà¼õ
-	//fracThis.SetDenominator(fracThis.Denominator() * frac.Denominator());//·ÖÄ¸Ïà³Ë
-	fracThis.SetDenominator(lcm);//»ñÈ¡·ÖÄ¸
+		- frac.Numerator() * fracMultiple);//åˆ†å­ä¹˜ä¹˜å­åç›¸å‡
+	//fracThis.SetDenominator(fracThis.Denominator() * frac.Denominator());//åˆ†æ¯ç›¸ä¹˜
+	fracThis.SetDenominator(lcm);//è·å–åˆ†æ¯
 	return fracThis;
 }
 
 Fraction Fraction::operator*(const Fraction& frac)const {
 	Fraction fracThis = *this;
-	fracThis.SetNumerator(fracThis.Numerator() * frac.Numerator());//·Ö×ÓÏà³Ë
-	fracThis.SetDenominator(fracThis.Denominator() * frac.Denominator());//·ÖÄ¸Ïà³Ë
+	fracThis.SetNumerator(fracThis.Numerator() * frac.Numerator());//åˆ†å­ç›¸ä¹˜
+	fracThis.SetDenominator(fracThis.Denominator() * frac.Denominator());//åˆ†æ¯ç›¸ä¹˜
 	return fracThis;
 }
 
 Fraction Fraction::operator/(const Fraction& frac)const {
 	Fraction fracThis = *this;
-	fracThis.SetNumerator(fracThis.Numerator() * frac.Denominator());//·Ö×Ó³Ë·ÖÄ¸
-	fracThis.SetDenominator(fracThis.Denominator() * frac.Numerator());//·ÖÄ¸³Ë·Ö×Ó
+	fracThis.SetNumerator(fracThis.Numerator() * frac.Denominator());//åˆ†å­ä¹˜åˆ†æ¯
+	fracThis.SetDenominator(fracThis.Denominator() * frac.Numerator());//åˆ†æ¯ä¹˜åˆ†å­
 	return fracThis;
 }
 
 // ostream& operator<<(ostream& os, const Fraction& frac) {
-// 	if (frac.Denominator() == 1) {//Èç¹û·ÖÄ¸Îª1
-// 		cout << frac.Numerator();//Ö±½ÓÊä³ö·Ö×Ó
+// 	if (frac.Denominator() == 1) {//å¦‚æœåˆ†æ¯ä¸º1
+// 		cout << frac.Numerator();//ç›´æ¥è¾“å‡ºåˆ†å­
 // 	}
 // 	else {
 // 		cout << frac.Numerator() << "/" << frac.Denominator();

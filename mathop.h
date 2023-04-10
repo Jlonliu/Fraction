@@ -4,32 +4,32 @@
 #include<iostream>
 using namespace std;
 
-#define SIGNIFICANT_FIGURE_LIMIT 18//ÓĞĞ§Êı×ÖÎ»Êı¼«ÏŞ
+#define SIGNIFICANT_FIGURE_LIMIT 18//æœ‰æ•ˆæ•°å­—ä½æ•°æé™
 
-//»ñÈ¡ÊıÖµµÄÓĞĞ§Î»Êı
+//è·å–æ•°å€¼çš„æœ‰æ•ˆä½æ•°
 template<class T>
 int DigitOfSignificantFigure(const T num) {
 	double dMultiple = 1.0;
 	int64_t iFigure = 0;
-	bool bOverflow = true;//Òç³ö±êÖ¾
-	int iDigit = 0;//ÊıÖµµÄÓĞĞ§Êı×Ö
+	bool bOverflow = true;//æº¢å‡ºæ ‡å¿—
+	int iDigit = 0;//æ•°å€¼çš„æœ‰æ•ˆæ•°å­—
 
 	for (dMultiple = 1.0; dMultiple < INT64_MAX; dMultiple = dMultiple * 10) {
-		if (abs(num * dMultiple) > INT64_MAX) {//Èç¹ûdoubleÊıÖµÔÚĞ¡ÊıÏû³ı¹ı³ÌÖĞÒç³öÁË
+		if (abs(num * dMultiple) > INT64_MAX) {//å¦‚æœdoubleæ•°å€¼åœ¨å°æ•°æ¶ˆé™¤è¿‡ç¨‹ä¸­æº¢å‡ºäº†
 			break;
 		}
 
-		if (num * dMultiple - int64_t(num * dMultiple) == 0) {//Ïû³ıdoubleÊıÖµµÄËùÓĞĞ¡Êı
-			iFigure = int64_t(num * dMultiple);//»ñÈ¡Ïû³ıĞ¡ÊıµÄdoubleÖµ
-			bOverflow = false;//doubleÊıÖµÎ´Òç³ö
+		if (num * dMultiple - int64_t(num * dMultiple) == 0) {//æ¶ˆé™¤doubleæ•°å€¼çš„æ‰€æœ‰å°æ•°
+			iFigure = int64_t(num * dMultiple);//è·å–æ¶ˆé™¤å°æ•°çš„doubleå€¼
+			bOverflow = false;//doubleæ•°å€¼æœªæº¢å‡º
 			break;
 		}
 	}
 
-	if (!bOverflow) {//Èç¹ûÊıÖµÉĞÎ´Òç³ö
+	if (!bOverflow) {//å¦‚æœæ•°å€¼å°šæœªæº¢å‡º
 		for (int64_t i = 1; iDigit <= SIGNIFICANT_FIGURE_LIMIT; i = i * 10) {
 			if (abs(iFigure / i) > 0) {
-				iDigit++;//ÓĞĞ§Êı×Ö¼Ó1
+				iDigit++;//æœ‰æ•ˆæ•°å­—+1
 			}
 			else {
 				break;
@@ -37,16 +37,16 @@ int DigitOfSignificantFigure(const T num) {
 		}
 	}
 	else {
-		//Òì³£´¦Àí
-		cout << "ÊıÖµÒç³ö" << endl;
+		//å¼‚å¸¸å¤„ç†
+		cout << "æ•°å€¼æº¢å‡º" << endl;
 	}
 	return iDigit;
 }
 
-//»ñÈ¡Á½¸öÊıÖµµÄ×îĞ¡¹«±¶Êı
+//è·å–ä¸¤ä¸ªæ•°å€¼çš„æœ€å°å…¬å€æ•°
 int64_t LeastCommonMultiple(const int64_t, const int64_t);
 
-//»ñÈ¡Á½¸öÊıÖµµÄ×î´ó¹«Ô¼Êı
+//è·å–ä¸¤ä¸ªæ•°å€¼çš„æœ€å¤§å…¬çº¦æ•°
 int64_t GreatestCommonDivisor(const int64_t, const int64_t);
 
 #endif
