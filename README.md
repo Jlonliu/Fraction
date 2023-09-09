@@ -1,8 +1,8 @@
-# Class-Fraction-by-cpp
+# Fraction
 
 [toc]
 
-a fraction of class to deal with precision number.
+A fraction class to deal with precision number.
 like 0.333333333333*3 not is 1,but 1/3*3 is 1.
 这是一个分数类（1/3），用来处理精确数值。
 比如double类下0.333333333333*3大概率会得到1。
